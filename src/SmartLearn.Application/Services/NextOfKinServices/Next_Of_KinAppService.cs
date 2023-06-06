@@ -21,12 +21,12 @@ namespace SmartLearn.Services.NextOfKinServices
             _nextofkinRepository = nextofkinRepository;
         }
 
-        public async Task<Next_Of_KinDto> CreateAsync(Next_Of_KinDto input)
-        {
-            var nextofkin = ObjectMapper.Map<Next_Of_Kin>(input);
-            await _nextofkinRepository.InsertAsync(nextofkin);
-            return ObjectMapper.Map<Next_Of_KinDto>(nextofkin);
-        }
+        //public async Task<Next_Of_KinDto> CreateAsync(Next_Of_KinDto input)
+        //{
+        //    var nextofkin = ObjectMapper.Map<Next_Of_Kin>(input);
+        //    await _nextofkinRepository.InsertAsync(nextofkin);
+        //    return ObjectMapper.Map<Next_Of_KinDto>(nextofkin);
+        //}
 
         public async Task<List<Next_Of_KinDto>> GetAllAsync()
         {

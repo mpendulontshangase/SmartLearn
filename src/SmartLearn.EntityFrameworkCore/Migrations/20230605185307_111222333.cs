@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmartLearn.Migrations
 {
-    public partial class _10111 : Migration
+    public partial class _111222333 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -757,11 +757,13 @@ namespace SmartLearn.Migrations
                     Gender = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<long>(type: "bigint", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Next_OF_Kin_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Learner_Subject = table.Column<int>(type: "int", nullable: true),
+                    Learner_Grade = table.Column<int>(type: "int", nullable: true),
+                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Relationship = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Parent_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Child_Relationship = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Next_Of_KinId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Next_Of_Kin_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Teacher_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Teacher_Subject = table.Column<int>(type: "int", nullable: true),
                     Teacher_Grade = table.Column<int>(type: "int", nullable: true),
@@ -784,6 +786,11 @@ namespace SmartLearn.Migrations
                     table.ForeignKey(
                         name: "FK_Sl.Persons_Sl.Persons_Next_Of_KinId",
                         column: x => x.Next_Of_KinId,
+                        principalTable: "Sl.Persons",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Sl.Persons_Sl.Persons_ParentId",
+                        column: x => x.ParentId,
                         principalTable: "Sl.Persons",
                         principalColumn: "Id");
                 });
@@ -1341,6 +1348,11 @@ namespace SmartLearn.Migrations
                 name: "IX_Sl.Persons_Next_Of_KinId",
                 table: "Sl.Persons",
                 column: "Next_Of_KinId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sl.Persons_ParentId",
+                table: "Sl.Persons",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sl.Persons_UserId",

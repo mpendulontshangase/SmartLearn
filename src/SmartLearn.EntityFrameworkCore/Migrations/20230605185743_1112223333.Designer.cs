@@ -12,8 +12,8 @@ using SmartLearn.EntityFrameworkCore;
 namespace SmartLearn.Migrations
 {
     [DbContext(typeof(SmartLearnDbContext))]
-    [Migration("20230605140801_101111")]
-    partial class _101111
+    [Migration("20230605185743_1112223333")]
+    partial class _1112223333
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1864,9 +1864,6 @@ namespace SmartLearn.Migrations
                     b.Property<int>("Learner_Grade")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("Learner_Id")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Learner_Subject")
                         .HasColumnType("int");
 
@@ -1883,9 +1880,6 @@ namespace SmartLearn.Migrations
             modelBuilder.Entity("SmartLearn.Domain.Next_Of_Kin", b =>
                 {
                     b.HasBaseType("SmartLearn.Domain.Person");
-
-                    b.Property<Guid>("Next_OF_Kin_Id")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Relationship")
                         .HasColumnType("nvarchar(max)");
@@ -1905,7 +1899,7 @@ namespace SmartLearn.Migrations
                     b.Property<Guid?>("Next_Of_KinId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Parent_Id")
+                    b.Property<Guid?>("Next_Of_Kin_Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("Next_Of_KinId");

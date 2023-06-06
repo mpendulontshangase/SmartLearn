@@ -21,12 +21,12 @@ namespace SmartLearn.Services.ParentServices
             _parentRepository = parentRepository;
         }
 
-        public async Task<ParentDto> CreateAsync(ParentDto input)
-        {
-            var parent = ObjectMapper.Map<Parent>(input);
-            await _parentRepository.InsertAsync(parent);
-            return ObjectMapper.Map<ParentDto>(parent);
-        }
+        //public async Task<ParentDto> CreateAsync(ParentDto input)
+        //{
+        //    var parent = ObjectMapper.Map<Parent>(input);
+        //    await _parentRepository.InsertAsync(parent);
+        //    return ObjectMapper.Map<ParentDto>(parent);
+        //}
 
         public async Task<List<ParentDto>> GetAllAsync()
         {

@@ -12,7 +12,7 @@ namespace SmartLearn.Domain
     [DiscriminatorValue("Sl.NextOfKin")]
     public class Next_Of_Kin:Person
     {
-        public virtual Guid Next_OF_Kin_Id{ get; set; }
+      
         public virtual string Relationship{ get; set; }
 
     }

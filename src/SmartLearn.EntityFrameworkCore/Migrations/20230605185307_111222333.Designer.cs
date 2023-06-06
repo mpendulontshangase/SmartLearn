@@ -12,8 +12,8 @@ using SmartLearn.EntityFrameworkCore;
 namespace SmartLearn.Migrations
 {
     [DbContext(typeof(SmartLearnDbContext))]
-    [Migration("20230605105539_10111")]
-    partial class _10111
+    [Migration("20230605185307_111222333")]
+    partial class _111222333
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1857,12 +1857,29 @@ namespace SmartLearn.Migrations
                     b.HasDiscriminator().HasValue("TenantFeatureSetting");
                 });
 
-            modelBuilder.Entity("SmartLearn.Domain.Next_Of_Kin", b =>
+            modelBuilder.Entity("SmartLearn.Domain.Learner", b =>
                 {
                     b.HasBaseType("SmartLearn.Domain.Person");
 
-                    b.Property<Guid>("Next_OF_Kin_Id")
+                    b.Property<int>("Learner_Grade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Learner_Subject")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Sl.Persons");
+
+                    b.HasDiscriminator().HasValue("Learner");
+                });
+
+            modelBuilder.Entity("SmartLearn.Domain.Next_Of_Kin", b =>
+                {
+                    b.HasBaseType("SmartLearn.Domain.Person");
 
                     b.Property<string>("Relationship")
                         .HasColumnType("nvarchar(max)");
@@ -1882,7 +1899,7 @@ namespace SmartLearn.Migrations
                     b.Property<Guid?>("Next_Of_KinId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Parent_Id")
+                    b.Property<Guid?>("Next_Of_Kin_Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("Next_Of_KinId");
@@ -2162,6 +2179,15 @@ namespace SmartLearn.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartLearn.Domain.Learner", b =>
+                {
+                    b.HasOne("SmartLearn.Domain.Parent", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("SmartLearn.Domain.Parent", b =>

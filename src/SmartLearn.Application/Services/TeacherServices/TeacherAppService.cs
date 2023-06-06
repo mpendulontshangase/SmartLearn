@@ -23,6 +23,7 @@ namespace SmartLearn.Services.TeacherServices
 
         public async Task<TeacherDto> CreateAsync(TeacherDto input)
         {
+            input.Teacher_Id = Guid.NewGuid();
             var teacher = ObjectMapper.Map<Teacher>(input);
             await _teacherRepository.InsertAsync(teacher);
             return ObjectMapper.Map<TeacherDto>(teacher);

@@ -20,6 +20,8 @@ namespace SmartLearn.Services.PersonServices
 
         public async Task<LearnerDto> CreateAsync(LearnerDto input)
         {
+            input.Next_Of_Kin_Id = Guid.NewGuid();
+            input.Parent_Id = Guid.NewGuid();
             var learner = ObjectMapper.Map<Learner>(input);
             await _learnerRepository.InsertAsync(learner);
             return ObjectMapper.Map<LearnerDto>(learner);

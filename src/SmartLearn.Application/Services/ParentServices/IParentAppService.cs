@@ -10,7 +10,7 @@ namespace SmartLearn.Services.ParentServices
 {
     public interface IParentAppService : IApplicationService
     {
-        Task<ParentDto> CreateAsync(ParentDto input);
+        //Task<ParentDto> CreateAsync(ParentDto input);
         Task<List<ParentDto>> GetAllAsync();
         Task<ParentDto> GetAsync(Guid id);
         Task UpdateAsync(ParentDto input);

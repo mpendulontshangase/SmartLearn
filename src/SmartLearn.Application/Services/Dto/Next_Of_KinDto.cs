@@ -11,7 +11,7 @@ namespace SmartLearn.Services.Dto
 {
     [AutoMap(typeof(Next_Of_Kin))]
 
-    public class Next_Of_KinDto: ParentDto
+    public class Next_Of_KinDto: PersonDto
     {
 
         public  string Relationship { get; set; }

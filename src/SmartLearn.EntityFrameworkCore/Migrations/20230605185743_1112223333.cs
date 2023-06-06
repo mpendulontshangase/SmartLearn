@@ -4,7 +4,7 @@
 
 namespace SmartLearn.Migrations
 {
-    public partial class _10111190 : Migration
+    public partial class _1112223333 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

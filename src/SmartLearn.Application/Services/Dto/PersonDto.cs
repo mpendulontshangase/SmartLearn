@@ -33,7 +33,23 @@ namespace SmartLearn.Services.Dto
 
         public string StreetAddress { get; set; }
 
-        public  string Age { get; set; }
+        public int Age
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(IDNumber) && IDNumber.Length >= 6)
+                {
+                    string birthYearStr = IDNumber.Substring(0, 2);
+                    int birthYear = int.Parse(birthYearStr);
+                    int currentYear = DateTime.Now.Year % 100;
+                    int age = currentYear - birthYear;
+                    if (age < 0)
+                        age += 100;
+                    return age;
+                }
+                return 0; 
+            }
+        }
 
         public RefListGender? Gender { get; set; }
 
