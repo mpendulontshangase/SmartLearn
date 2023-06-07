@@ -15,7 +15,7 @@ namespace SmartLearn.Domain
 
         public virtual string Homework_Description { get; set; }
 
-        public virtual DateOnly Due_Date { get; set; }
+        public virtual DateTime Due_Date { get; set; }
         public virtual int Homework_Mark { get; set; }
 
 

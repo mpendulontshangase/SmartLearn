@@ -16,7 +16,10 @@ namespace SmartLearn.Services.Dto
 
         public  string Relationship { get; set; }
 
-       
+        public Guid Next_Of_Kin_Id { get; set; } = Guid.NewGuid();
+
+
+
 
     }
 }

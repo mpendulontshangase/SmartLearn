@@ -8,7 +8,7 @@ namespace SmartLearn.Services.PersonServices
 {
     public interface ILearnerAppService : IApplicationService
     {
-        Task<LearnerDto> CreateAsync(LearnerDto input);
+        Task<LearnerDto> CreateLearnerAsync(LearnerDto input);
         Task<List<LearnerDto>> GetAllAsync();
         Task<LearnerDto> GetAsync(Guid id);
         Task UpdateAsync(LearnerDto input);

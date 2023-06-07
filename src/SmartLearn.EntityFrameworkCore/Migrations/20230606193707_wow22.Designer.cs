@@ -12,8 +12,8 @@ using SmartLearn.EntityFrameworkCore;
 namespace SmartLearn.Migrations
 {
     [DbContext(typeof(SmartLearnDbContext))]
-    [Migration("20230605185743_1112223333")]
-    partial class _1112223333
+    [Migration("20230606193707_wow22")]
+    partial class wow22
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1712,6 +1712,10 @@ namespace SmartLearn.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Grade")
                         .HasColumnType("nvarchar(max)");
 
@@ -1738,6 +1742,8 @@ namespace SmartLearn.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Sl.Records");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Record");
                 });
 
             modelBuilder.Entity("SmartLearn.MultiTenancy.Tenant", b =>
@@ -1857,6 +1863,27 @@ namespace SmartLearn.Migrations
                     b.HasDiscriminator().HasValue("TenantFeatureSetting");
                 });
 
+            modelBuilder.Entity("SmartLearn.Domain.HomeworkRecord", b =>
+                {
+                    b.HasBaseType("SmartLearn.Domain.Record");
+
+                    b.Property<DateTime>("Due_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Homework_Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Homework_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Homework_Mark")
+                        .HasColumnType("int");
+
+                    b.ToTable("Sl.Records");
+
+                    b.HasDiscriminator().HasValue("HomeworkRecord");
+                });
+
             modelBuilder.Entity("SmartLearn.Domain.Learner", b =>
                 {
                     b.HasBaseType("SmartLearn.Domain.Person");
@@ -1925,6 +1952,27 @@ namespace SmartLearn.Migrations
                     b.ToTable("Sl.Persons");
 
                     b.HasDiscriminator().HasValue("Teacher");
+                });
+
+            modelBuilder.Entity("SmartLearn.Domain.TestRecord", b =>
+                {
+                    b.HasBaseType("SmartLearn.Domain.Record");
+
+                    b.Property<DateTime>("Test_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Test_Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Test_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Test_Mark")
+                        .HasColumnType("int");
+
+                    b.ToTable("Sl.Records");
+
+                    b.HasDiscriminator().HasValue("TestRecord");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Roles.RoleClaim", b =>

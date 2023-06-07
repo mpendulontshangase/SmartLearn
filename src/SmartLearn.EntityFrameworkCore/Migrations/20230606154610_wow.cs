@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmartLearn.Migrations
 {
-    public partial class _111222333 : Migration
+    public partial class wow : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -964,6 +964,15 @@ namespace SmartLearn.Migrations
                     Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Grade = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Homework_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Homework_Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Due_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Homework_Mark = table.Column<int>(type: "int", nullable: true),
+                    Test_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Test_Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Test_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Test_Mark = table.Column<int>(type: "int", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),

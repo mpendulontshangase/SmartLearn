@@ -11,9 +11,9 @@ namespace SmartLearn.Services.Dto
 {
     [AutoMap(typeof(HomeworkRecord))]
 
-    public class HomeworkRecordDto:EntityDto<Guid>
+    public class HomeworkRecordDto:RecordDto
     {
-        //public  Guid Homework_Id { get; set; }
+   
         public string Homework_Description { get; set; }
         public DateTime Due_Date { get; set; }
         public  int Homework_Mark { get; set; }

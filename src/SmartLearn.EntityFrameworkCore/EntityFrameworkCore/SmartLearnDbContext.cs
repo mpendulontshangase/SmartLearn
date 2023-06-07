@@ -16,6 +16,8 @@ namespace SmartLearn.EntityFrameworkCore
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Record> Records { get; set; }
+        public DbSet<HomeworkRecord> HomeworkRecords { get; set; }
+        public DbSet<TestRecord> TestRecords { get; set; }
 
         public SmartLearnDbContext(DbContextOptions<SmartLearnDbContext> options)
             : base(options)

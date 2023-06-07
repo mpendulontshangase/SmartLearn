@@ -17,8 +17,8 @@ namespace SmartLearn.Services.Dto
 
         public RefListSubject Teacher_Subject { get; set; }
         public RefListGrade Teacher_Grade { get; set; }
-        public Guid Teacher_Id { get; set; }
+       
 
     }
-    
+
 }

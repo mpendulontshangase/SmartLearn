@@ -21,12 +21,23 @@ namespace SmartLearn.Services.ParentServices
             _parentRepository = parentRepository;
         }
 
-        //public async Task<ParentDto> CreateAsync(ParentDto input)
-        //{
-        //    var parent = ObjectMapper.Map<Parent>(input);
-        //    await _parentRepository.InsertAsync(parent);
-        //    return ObjectMapper.Map<ParentDto>(parent);
-        //}
+        public async Task<ParentDto> CreateAsync(ParentDto input)
+        {
+            var existingLearnerById = await _parentRepository.FirstOrDefaultAsync(x => x.IDNumber == input.IDNumber);
+            if (existingLearnerById != null)
+            {
+                throw new Exception("A teacher with the same ID already exists.");
+            }
+
+            var existingLearnerByEmail = await _parentRepository.FirstOrDefaultAsync(x => x.EmailAddress == input.EmailAddress);
+            if (existingLearnerByEmail != null)
+            {
+                throw new Exception("A teacher with the same email address already exists.");
+            }
+            var parent = ObjectMapper.Map<Parent>(input);
+            await _parentRepository.InsertAsync(parent);
+            return ObjectMapper.Map<ParentDto>(parent);
+        }
 
         public async Task<List<ParentDto>> GetAllAsync()
         {

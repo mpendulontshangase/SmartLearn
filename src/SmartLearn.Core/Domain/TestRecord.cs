@@ -15,6 +15,7 @@ namespace SmartLearn.Domain
         public virtual string Test_Description { get; set; }
         public virtual DateTime Test_Date { get; set; }
         public virtual int Test_Mark{ get; set; }
+        public virtual Teacher Teacher{ get; set; }
 
     }
 }

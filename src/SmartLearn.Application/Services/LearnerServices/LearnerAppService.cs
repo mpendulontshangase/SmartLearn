@@ -1,8 +1,11 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
+using SmartLearn.Authorization.Users;
 using SmartLearn.Domain;
 using SmartLearn.Services.Dto;
 using SmartLearn.Services.LearnerServices;
+using SmartLearn.Users;
+using SmartLearn.Users.Dto;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,20 +15,41 @@ namespace SmartLearn.Services.PersonServices
     public class LearnerAppService : ApplicationService, ILearnerAppService
     {
         private readonly IRepository<Learner, Guid> _learnerRepository;
+        private readonly IRepository<Parent, Guid> _parentRepository;
+        private readonly UserManager _userManager;
+        private readonly IUserAppService _userAppService;
 
-        public LearnerAppService(IRepository<Learner, Guid> learnerRepository)
+        public LearnerAppService(IRepository<Learner, Guid> learnerRepository, IRepository<Parent, Guid> parentRepository,UserManager userManager, IUserAppService userAppService)
         {
-            _learnerRepository = learnerRepository;
+            this._learnerRepository = learnerRepository;
+            this._parentRepository = parentRepository;
+            this._userManager = userManager;
+            this._userAppService = userAppService;
         }
 
-        public async Task<LearnerDto> CreateAsync(LearnerDto input)
+        public async Task<LearnerDto> CreateLearnerAsync(LearnerDto input)
         {
-            input.Next_Of_Kin_Id = Guid.NewGuid();
-            input.Parent_Id = Guid.NewGuid();
+ 
+            var existingLearnerById = await _learnerRepository.FirstOrDefaultAsync(x => x.IDNumber == input.IDNumber);
+            if (existingLearnerById != null)
+            {
+                throw new Exception("A learner with the same ID already exists.");
+            }
+
+            var existingLearnerByEmail = await _learnerRepository.FirstOrDefaultAsync(x => x.EmailAddress == input.EmailAddress);
+            if (existingLearnerByEmail != null)
+            {
+                throw new Exception("A learner with the same email address already exists.");
+            }
             var learner = ObjectMapper.Map<Learner>(input);
+            learner.Parent = _parentRepository.Get(input.Parent_Id);
+            var createUserDto = ObjectMapper.Map<CreateUserDto>(input);
+            var userDto = await _userAppService.CreateAsync(createUserDto);
+            learner.User = ObjectMapper.Map<User>(userDto);
             await _learnerRepository.InsertAsync(learner);
             return ObjectMapper.Map<LearnerDto>(learner);
         }
+
 
         public async Task<List<LearnerDto>> GetAllAsync()
         {
