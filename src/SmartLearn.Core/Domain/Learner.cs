@@ -16,5 +16,6 @@ namespace SmartLearn.Domain
         public virtual RefListGrade Learner_Grade { get; set; }
 
         public virtual Parent Parent { get; set; }
+        public Guid Parent_Id { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace SmartLearn.Services.Dto
 
     public class TestRecordDto:RecordDto
     {
-        //public Guid Test_Id { get; set; }= Guid.NewGuid();
+     
         public  string Test_Description { get; set; }
         public  DateTime Test_Date { get; set; }
         public  int Test_Mark{ get; set; }

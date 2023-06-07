@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using SmartLearn.Domain;
+using SmartLearn.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace SmartLearn.Services.Dto
     {
         
         public  DateTime UploadDate { get; set; }
-        
-        public  string Grade { get; set; }
-        public  string Subject { get; set; }
+
+        public RefListGrade Grade { get; set; }
+        public RefListSubject Subject { get; set; }
         public Guid Teacher_Id { get; set; }
     }
 }

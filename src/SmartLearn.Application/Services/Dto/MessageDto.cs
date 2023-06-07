@@ -15,7 +15,7 @@ namespace SmartLearn.Services.Dto
     {
         public  string Message_Description { get; set; }
         public  DateTime Time_sent { get; set; }
-        public  Guid? Teacher_Id { get; set; }
-        public  Guid? Parent_Id { get; set; }
+        public  Guid Teacher_Id { get; set; }
+        public  Guid Parent_Id { get; set; }
     }
 }

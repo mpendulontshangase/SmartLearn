@@ -2,12 +2,14 @@
 using Abp.Domain.Repositories;
 using SmartLearn.Authorization.Users;
 using SmartLearn.Domain;
+using SmartLearn.Domain.Enum;
 using SmartLearn.Services.Dto;
 using SmartLearn.Services.LearnerServices;
 using SmartLearn.Users;
 using SmartLearn.Users.Dto;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SmartLearn.Services.PersonServices
@@ -75,22 +77,48 @@ namespace SmartLearn.Services.PersonServices
             await _learnerRepository.DeleteAsync(id);
         }
 
-        //public async Task<List<LearnerDto>> GetLearnersBySubjectAsync(string subject)
-        //{
-        //    var learners = await _learnerRepository.GetAllListAsync(l => l.Learner_Subject == subject);
-        //    return ObjectMapper.Map<List<LearnerDto>>(learners);
-        //}
+        public async Task<List<LearnerDto>> GetLearnersBySubjectAsync(string subject)
+        {
+            string subjectUpperCase = subject.ToUpper();
 
-        //public async Task<List<LearnerDto>> GetLearnersByGradeAsync(string grade)
-        //{
-        //    var learners = await _learnerRepository.GetAllListAsync(l => l.Learner_Grade == grade);
-        //    return ObjectMapper.Map<List<LearnerDto>>(learners);
-        //}
+            
+            var matchingSubject = Enum.GetValues(typeof(RefListSubject))
+                                      .Cast<RefListSubject>()
+                                      .FirstOrDefault(s => s.ToString().ToUpper() == subjectUpperCase);
 
-        //public async Task<List<LearnerDto>> GetLearnersByParentIdAsync(Guid parentId)
-        //{
-        //    var learners = await _learnerRepository.GetAllListAsync(l => l.Parent_Id == parentId);
-        //    return ObjectMapper.Map<List<LearnerDto>>(learners);
-        //}
+            if (matchingSubject == default(RefListSubject))
+            {
+                return new List<LearnerDto>();
+            }
+
+            var learners = await _learnerRepository.GetAllListAsync(l => l.Learner_Subject == matchingSubject);
+            return ObjectMapper.Map<List<LearnerDto>>(learners);
+        }
+
+
+
+        public async Task<List<LearnerDto>> GetLearnersByGradeAsync(string grade)
+        {
+            string gradeUpperCase = grade.ToUpper();
+
+
+            var matchingGrade = Enum.GetValues(typeof(RefListGrade))
+                                      .Cast<RefListGrade>()
+                                      .FirstOrDefault(s => s.ToString().ToUpper() == gradeUpperCase);
+
+            if (matchingGrade == default(RefListGrade))
+            {
+                return new List<LearnerDto>();
+            }
+
+            var learners = await _learnerRepository.GetAllListAsync(l => l.Learner_Grade == matchingGrade);
+            return ObjectMapper.Map<List<LearnerDto>>(learners);
+        }
+
+        public async Task<List<LearnerDto>> GetLearnersByParentIdAsync(Guid parentId)
+        {
+            var learners = await _learnerRepository.GetAllListAsync(l => l.Parent_Id == parentId);
+            return ObjectMapper.Map<List<LearnerDto>>(learners);
+        }
     }
 }

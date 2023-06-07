@@ -16,26 +16,29 @@ namespace SmartLearn.Services.MessageService
     {
         private readonly IRepository<Message, Guid> _messageRepository;
         private readonly IRepository<Teacher, Guid> _teacherRepository;
+        private readonly IRepository<Parent,Guid> _parentRepository;
 
-        public MessageAppService (IRepository<Message, Guid> messageRepository, IRepository<Teacher, Guid> teacherRepository)
+        public MessageAppService (IRepository<Message, Guid> messageRepository, IRepository<Teacher, Guid> teacherRepository, IRepository<Parent, Guid> parentRepository)
         {
             _messageRepository = messageRepository;
             _teacherRepository = teacherRepository;
+            _parentRepository = parentRepository;
         }
 
         public async Task<MessageDto> CreateAsync(MessageDto input)
         {
 
             var message = ObjectMapper.Map<Message>(input);
-            //message.Teacher = _teacherRepository.Get(input.Teacher_Id);
+            message.Teacher = _teacherRepository.Get(input.Teacher_Id);
+            message.Parent = _parentRepository.Get(input.Parent_Id);
             await _messageRepository.InsertAsync(message);
             return ObjectMapper.Map<MessageDto>(message);
         }
 
         public async Task<List<MessageDto>> GetAllAsync()
         {
-            var homeworks = await _messageRepository.GetAllListAsync();
-            return ObjectMapper.Map<List<MessageDto>>(homeworks);
+            var messages= await _messageRepository.GetAllListAsync();
+            return ObjectMapper.Map<List<MessageDto>>(messages);
         }
 
         public async Task<MessageDto> GetAsync(Guid id)

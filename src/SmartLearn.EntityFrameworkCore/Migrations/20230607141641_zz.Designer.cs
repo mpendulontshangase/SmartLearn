@@ -12,8 +12,8 @@ using SmartLearn.EntityFrameworkCore;
 namespace SmartLearn.Migrations
 {
     [DbContext(typeof(SmartLearnDbContext))]
-    [Migration("20230606154610_wow")]
-    partial class wow
+    [Migration("20230607141641_zz")]
+    partial class zz
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1895,6 +1895,9 @@ namespace SmartLearn.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Parent_Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("ParentId");

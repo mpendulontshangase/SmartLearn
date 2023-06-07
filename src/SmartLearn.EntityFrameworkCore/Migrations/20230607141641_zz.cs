@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmartLearn.Migrations
 {
-    public partial class wow : Migration
+    public partial class zz : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -760,6 +760,7 @@ namespace SmartLearn.Migrations
                     Learner_Subject = table.Column<int>(type: "int", nullable: true),
                     Learner_Grade = table.Column<int>(type: "int", nullable: true),
                     ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Parent_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Relationship = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Child_Relationship = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Next_Of_KinId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),

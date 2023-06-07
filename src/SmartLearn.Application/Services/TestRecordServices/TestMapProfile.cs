@@ -17,8 +17,8 @@ namespace SmartLearn.Services.TestRecordServices
             CreateMap<TestRecord, TestRecordDto>()
                 .ForMember(x => x.Teacher_Id, m => m.MapFrom(x => x.Teacher != null ? x.Teacher.Id : Guid.Empty));
 
-            CreateMap<TestRecordDto, TestRecord>()
-                .ForMember(e => e.Id, d => d.Ignore());
+            //CreateMap<TestRecordDto, TestRecord>()
+            //    .ForMember(e => e.Id, d => d.Ignore());
         }
 
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmartLearn.Domain.Attributes
 {
-    public class DiscriminatorAttribute : Attribute
+    public class DiscriminatorAttribute : ;
     {
 
         public string DiscriminatorColumn { get; set; }

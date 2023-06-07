@@ -12,8 +12,8 @@ using SmartLearn.EntityFrameworkCore;
 namespace SmartLearn.Migrations
 {
     [DbContext(typeof(SmartLearnDbContext))]
-    [Migration("20230606193707_wow22")]
-    partial class wow22
+    [Migration("20230607142858_zzz")]
+    partial class zzz
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1897,6 +1897,9 @@ namespace SmartLearn.Migrations
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("Parent_Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasIndex("ParentId");
 
                     b.ToTable("Sl.Persons");
@@ -1963,9 +1966,6 @@ namespace SmartLearn.Migrations
 
                     b.Property<string>("Test_Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("Test_Id")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Test_Mark")
                         .HasColumnType("int");
