@@ -14,8 +14,13 @@ namespace SmartLearn.Services.Dto
     [AutoMap(typeof(Learner))]
     public class LearnerDto:PersonDto
     {
-        public RefListSubject Learner_Subject { get; set; }
-        public  RefListGrade Learner_Grade { get; set; }
+        public List<int> Subject { get; set; }
+
+        public List<string> SubjectDisplay { get; set; }
+
+        public  RefListGrade Grade { get; set; }
+        public  string GradeName { get; set; }
+
         public Guid Parent_Id { get; set; }
     
 

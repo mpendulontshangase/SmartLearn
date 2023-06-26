@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using SmartLearn.Domain.Attributes;
+using SmartLearn.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,11 @@ namespace SmartLearn.Domain
     public class Message:FullAuditedEntity<Guid>
     {
         public virtual string Message_Description { get; set; }
-        public virtual DateTime Time_sent { get; set; }
-        public virtual Teacher? Teacher { get; set; }
-        public virtual Parent? Parent { get; set; }
+        public virtual string Reply { get; set; }
+       
+        public virtual RefListSubject Subject { get; set; }
+        public virtual RefListGrade? Grade { get; set; }
+       
 
 
     }

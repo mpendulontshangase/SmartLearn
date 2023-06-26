@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using SmartLearn.Domain;
+using SmartLearn.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,13 @@ namespace SmartLearn.Services.Dto
     public class MessageDto:EntityDto<Guid>
     {
         public  string Message_Description { get; set; }
-        public  DateTime Time_sent { get; set; }
-        public  Guid Teacher_Id { get; set; }
-        public  Guid Parent_Id { get; set; }
+        public  string Reply { get; set; }
+       
+        public List<int> Subject { get; set; }
+        public List<string> SubjectDisplay { get; set; }
+
+        public  RefListGrade Grade { get; set; }
+        public string GradeName { get; set; }
+
     }
 }

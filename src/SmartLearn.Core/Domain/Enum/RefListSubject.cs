@@ -7,31 +7,29 @@ using System.Threading.Tasks;
 
 namespace SmartLearn.Domain.Enum
 {
+    [Flags]
     public enum RefListSubject : int
     {
-        [Description("IsiZulu Hl")]
+        [Description("IsiZulu")]
         IsiZulu = 1,
-        [Description("English FAL")]
+        [Description("English")]
         English = 2,
-        [Description("Life Orientation")]
-        LO = 3,
         [Description("Mathematics")]
         Mathematics = 4,
-        [Description("Life Sciences")]
-        LifeSciences = 5,
-        [Description("Physical Sciences")]
-        PhysicalSciences = 6,
-        [Description("Accounting")]
-        Accounting = 7,
-        [Description("History")]
-        History = 8,
-        [Description("Tourism")]
-        Tourism = 9,
-        [Description("Geograph")]
-        Geograph = 10,
-        [Description("Commerce")]
-        Commerce = 11,
-        [Description("Business Study")]
-        BusinessStudy = 12
+        [Description("Life Orientation")]
+        LO = 8,
+        [Description("Technology")]
+        Technology = 16,
+        [Description("NS")]
+        NS = 32,
+        [Description("EMS")]
+        EMS = 64,
+        [Description("Sepedi")]
+        Sepedi = 128,
+        [Description("Afrikaans")]
+        Afrikaans = 256,
+
     }
+
+    
 }

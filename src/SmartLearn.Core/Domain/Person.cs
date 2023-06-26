@@ -26,6 +26,7 @@ namespace SmartLearn.Domain
      
         [StringLength(13)]
         public virtual string IDNumber { get; set; }
+        public virtual string Passport { get; set; }
 
         public virtual string Username { get; set; }
 
@@ -41,6 +42,7 @@ namespace SmartLearn.Domain
       
 
         public virtual string Age { get; set; }
+        public virtual DateTime DateOfBirth { get; set; }
 
         public virtual RefListGender? Gender { get; set; }
      

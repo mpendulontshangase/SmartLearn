@@ -2,7 +2,9 @@
 using Abp.Domain.Repositories;
 using AutoMapper;
 using SmartLearn.Domain;
+using SmartLearn.Domain.Enum;
 using SmartLearn.Services.Dto;
+using SmartLearn.Services.Helper;
 using SmartLearn.Services.HomeworkServices;
 using System;
 using System.Collections.Generic;
@@ -15,24 +17,36 @@ namespace SmartLearn.Services.MessageService
     public class MessageAppService : ApplicationService, IMessageAppService
     {
         private readonly IRepository<Message, Guid> _messageRepository;
-        private readonly IRepository<Teacher, Guid> _teacherRepository;
-        private readonly IRepository<Parent,Guid> _parentRepository;
+     
 
-        public MessageAppService (IRepository<Message, Guid> messageRepository, IRepository<Teacher, Guid> teacherRepository, IRepository<Parent, Guid> parentRepository)
+        public MessageAppService (IRepository<Message, Guid> messageRepository)
         {
             _messageRepository = messageRepository;
-            _teacherRepository = teacherRepository;
-            _parentRepository = parentRepository;
+    
         }
 
         public async Task<MessageDto> CreateAsync(MessageDto input)
         {
 
             var message = ObjectMapper.Map<Message>(input);
-            message.Teacher = _teacherRepository.Get(input.Teacher_Id);
-            message.Parent = _parentRepository.Get(input.Parent_Id);
+      
             await _messageRepository.InsertAsync(message);
-            return ObjectMapper.Map<MessageDto>(message);
+         
+
+            var result = ObjectMapper.Map<MessageDto>(message);
+            var decomposed = RefListHelper.DecomposeIntoBitFlagComponents((int)message.Subject);
+            var lists = new List<string>();
+
+            foreach (var item in decomposed)
+            {
+                var name = RefListHelper.GetEnumDescription((RefListSubject)item);
+            }
+
+            result.SubjectDisplay = lists;
+            result.Subject = decomposed.ToList();
+
+            return result;
+
         }
 
         public async Task<List<MessageDto>> GetAllAsync()

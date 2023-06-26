@@ -1,4 +1,5 @@
-﻿using SmartLearn.Domain.Attributes;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartLearn.Domain.Attributes;
 using SmartLearn.Domain.Enum;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ namespace SmartLearn.Domain
 {
     [Entity(TypeShortAlias = "Sl.Teacher")]
     [DiscriminatorValue("Sl.Teacher")]
+
     public class Teacher:Person
     {
-        public virtual Guid Teacher_Id { get; set; }
-        public virtual RefListSubject Teacher_Subject { get; set; }
-        public virtual RefListGrade Teacher_Grade { get; set; }
+        public virtual RefListSubject Subject { get; set; }
+        public virtual RefListGrade Grade { get; set; }
 
     }
 }

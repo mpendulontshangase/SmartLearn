@@ -14,4 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartLearn.Core\SmartLearn.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\StoredFileService\Mapping\" />
+  </ItemGroup>
 </Project>

@@ -12,10 +12,10 @@ namespace SmartLearn.Domain
     [DiscriminatorValue("Sl.Learner")]
     public class Learner :Person
     {
-        public virtual RefListSubject Learner_Subject { get; set; }
-        public virtual RefListGrade Learner_Grade { get; set; }
+        public virtual RefListSubject Subject { get; set; }
+        public virtual RefListGrade Grade { get; set; }
 
         public virtual Parent Parent { get; set; }
-        public Guid Parent_Id { get; set; }
+        //public Guid Parent_Id { get; set; }
     }
 }

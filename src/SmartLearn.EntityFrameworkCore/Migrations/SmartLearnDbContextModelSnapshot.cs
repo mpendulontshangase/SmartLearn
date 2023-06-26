@@ -1567,6 +1567,60 @@ namespace SmartLearn.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("SmartLearn.Domain.HomeworkRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Due_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HomeworkDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("HomeworkFileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Subject")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeworkFileId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("HomeworkRecords");
+                });
+
             modelBuilder.Entity("SmartLearn.Domain.Message", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1585,6 +1639,9 @@ namespace SmartLearn.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("Grade")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1597,20 +1654,13 @@ namespace SmartLearn.Migrations
                     b.Property<string>("Message_Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ParentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Reply")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TeacherId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Time_sent")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Subject")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.HasIndex("TeacherId");
 
                     b.ToTable("Messages");
                 });
@@ -1629,6 +1679,9 @@ namespace SmartLearn.Migrations
 
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
@@ -1662,6 +1715,9 @@ namespace SmartLearn.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Passport")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
@@ -1692,56 +1748,21 @@ namespace SmartLearn.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Person");
                 });
 
-            modelBuilder.Entity("SmartLearn.Domain.Record", b =>
+            modelBuilder.Entity("SmartLearn.Domain.StoredFile", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
+                    b.Property<string>("FileName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Grade")
+                    b.Property<string>("FileType")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TeacherId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Upload_Date")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("Sl.Records");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Record");
+                    b.ToTable("StoredFiles");
                 });
 
             modelBuilder.Entity("SmartLearn.MultiTenancy.Tenant", b =>
@@ -1861,42 +1882,18 @@ namespace SmartLearn.Migrations
                     b.HasDiscriminator().HasValue("TenantFeatureSetting");
                 });
 
-            modelBuilder.Entity("SmartLearn.Domain.HomeworkRecord", b =>
-                {
-                    b.HasBaseType("SmartLearn.Domain.Record");
-
-                    b.Property<DateTime>("Due_Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Homework_Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("Homework_Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Homework_Mark")
-                        .HasColumnType("int");
-
-                    b.ToTable("Sl.Records");
-
-                    b.HasDiscriminator().HasValue("HomeworkRecord");
-                });
-
             modelBuilder.Entity("SmartLearn.Domain.Learner", b =>
                 {
                     b.HasBaseType("SmartLearn.Domain.Person");
 
-                    b.Property<int>("Learner_Grade")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Learner_Subject")
+                    b.Property<int>("Grade")
                         .HasColumnType("int");
 
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Parent_Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Subject")
+                        .HasColumnType("int");
 
                     b.HasIndex("ParentId");
 
@@ -1905,32 +1902,9 @@ namespace SmartLearn.Migrations
                     b.HasDiscriminator().HasValue("Learner");
                 });
 
-            modelBuilder.Entity("SmartLearn.Domain.Next_Of_Kin", b =>
-                {
-                    b.HasBaseType("SmartLearn.Domain.Person");
-
-                    b.Property<string>("Relationship")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("Sl.Persons");
-
-                    b.HasDiscriminator().HasValue("Next_Of_Kin");
-                });
-
             modelBuilder.Entity("SmartLearn.Domain.Parent", b =>
                 {
                     b.HasBaseType("SmartLearn.Domain.Person");
-
-                    b.Property<string>("Child_Relationship")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("Next_Of_KinId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("Next_Of_Kin_Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("Next_Of_KinId");
 
                     b.ToTable("Sl.Persons");
 
@@ -1941,36 +1915,17 @@ namespace SmartLearn.Migrations
                 {
                     b.HasBaseType("SmartLearn.Domain.Person");
 
-                    b.Property<int>("Teacher_Grade")
-                        .HasColumnType("int");
+                    b.Property<int>("Grade")
+                        .HasColumnType("int")
+                        .HasColumnName("Teacher_Grade");
 
-                    b.Property<Guid>("Teacher_Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Teacher_Subject")
-                        .HasColumnType("int");
+                    b.Property<int>("Subject")
+                        .HasColumnType("int")
+                        .HasColumnName("Teacher_Subject");
 
                     b.ToTable("Sl.Persons");
 
                     b.HasDiscriminator().HasValue("Teacher");
-                });
-
-            modelBuilder.Entity("SmartLearn.Domain.TestRecord", b =>
-                {
-                    b.HasBaseType("SmartLearn.Domain.Record");
-
-                    b.Property<DateTime>("Test_Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Test_Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Test_Mark")
-                        .HasColumnType("int");
-
-                    b.ToTable("Sl.Records");
-
-                    b.HasDiscriminator().HasValue("TestRecord");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Roles.RoleClaim", b =>
@@ -2138,17 +2093,17 @@ namespace SmartLearn.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("SmartLearn.Domain.Message", b =>
+            modelBuilder.Entity("SmartLearn.Domain.HomeworkRecord", b =>
                 {
-                    b.HasOne("SmartLearn.Domain.Parent", "Parent")
+                    b.HasOne("SmartLearn.Domain.StoredFile", "HomeworkFile")
                         .WithMany()
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("HomeworkFileId");
 
                     b.HasOne("SmartLearn.Domain.Teacher", "Teacher")
                         .WithMany()
                         .HasForeignKey("TeacherId");
 
-                    b.Navigation("Parent");
+                    b.Navigation("HomeworkFile");
 
                     b.Navigation("Teacher");
                 });
@@ -2160,15 +2115,6 @@ namespace SmartLearn.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("SmartLearn.Domain.Record", b =>
-                {
-                    b.HasOne("SmartLearn.Domain.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId");
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("SmartLearn.MultiTenancy.Tenant", b =>
@@ -2234,15 +2180,6 @@ namespace SmartLearn.Migrations
                         .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("SmartLearn.Domain.Parent", b =>
-                {
-                    b.HasOne("SmartLearn.Domain.Next_Of_Kin", "Next_Of_Kin")
-                        .WithMany()
-                        .HasForeignKey("Next_Of_KinId");
-
-                    b.Navigation("Next_Of_Kin");
                 });
 
             modelBuilder.Entity("Abp.DynamicEntityProperties.DynamicProperty", b =>

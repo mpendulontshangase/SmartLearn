@@ -15,7 +15,7 @@ namespace SmartLearn.Services.Dto
     public class ParentDto: PersonDto
     {
        
-        public  string Child_Relationship { get; set; }  
+       
  
     }
 }

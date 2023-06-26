@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SmartLearn.Authorization.Users;
 using SmartLearn.Domain;
+using SmartLearn.Domain.Enum;
 using SmartLearn.Services.Dto;
 using SmartLearn.Services.Helper;
 using System;
@@ -17,8 +18,12 @@ namespace SmartLearn.Services.LearnerServices
         {
             CreateMap<Learner, LearnerDto>()
                  .ForMember(x => x.UserId, m => m.MapFrom(x => x.User != null ? x.User.Id : (long?)null))
-                .ForMember(x => x.Gender, m => m.MapFrom(x => x.Gender != null ? x.Gender.GetEnumDescription() : null))
-                .ForMember(x => x.Parent_Id, m => m.MapFrom(x => x.Parent != null ? x.Parent.Id : Guid.Empty));
+                .ForMember(x => x.Gender, m => m.MapFrom(x => x.Gender != null && x.Gender != 0 ? x.Gender.GetEnumDescription() : null))
+                .ForMember(x => x.GradeName, m => m.MapFrom(x => x.Grade != null && x.Grade != 0 ? x.Grade.GetEnumDescription() : null))
+                .ForMember(x => x.SubjectDisplay, m => m.MapFrom(x => RefListHelper.GetIndividualSubjects(x.Subject)))
+                .ForMember(x => x.Parent_Id, m => m.MapFrom(x => x.Parent != null ? x.Parent.Id : Guid.Empty))
+                .ForMember(x => x.Subject,x => x.Ignore());
+
 
             CreateMap<LearnerDto, User>()
                 .ForMember(x => x.Name, m => m.MapFrom(x => x.Name))
@@ -32,7 +37,8 @@ namespace SmartLearn.Services.LearnerServices
                 .ForMember(e => e.Id, d => d.Ignore());
 
             CreateMap<LearnerDto, Learner>()
-                .ForMember(e => e.Id, d => d.Ignore());
+                .ForMember(e => e.Id, d => d.Ignore())
+                .ForMember(a => a.Subject, opt => opt.MapFrom(b => (RefListSubject)RefListHelper.SetMultiValueReferenceList(b.Subject)));
               
         }
 

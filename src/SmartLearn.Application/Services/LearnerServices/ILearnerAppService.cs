@@ -11,6 +11,7 @@ namespace SmartLearn.Services.PersonServices
         Task<LearnerDto> CreateLearnerAsync(LearnerDto input);
         Task<List<LearnerDto>> GetAllAsync();
         Task<LearnerDto> GetAsync(Guid id);
+        Task<PersonDto> GetPersonInfoAsync(long userId);
         Task UpdateAsync(LearnerDto input);
         Task DeleteAsync(Guid id);
         //Task<List<LearnerDto>> GetLearnersBySubjectAsync(string subject);

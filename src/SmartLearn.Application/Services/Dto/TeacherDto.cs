@@ -15,9 +15,11 @@ namespace SmartLearn.Services.Dto
     public class TeacherDto : PersonDto
     {
 
-        public RefListSubject Teacher_Subject { get; set; }
-        public RefListGrade Teacher_Grade { get; set; }
-       
+        public List<int> Subject { get; set; }
+        public List<string> SubjectDisplay { get; set; }
+        public RefListGrade Grade { get; set; }
+        public string GradeName { get; set; }
+
 
     }
 

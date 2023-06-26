@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+using SmartLearn.Domain;
 using SmartLearn.Services.Dto;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ namespace SmartLearn.Services.TeacherServices
     {
         Task<TeacherDto> CreateAsync(TeacherDto input);
         Task<List<TeacherDto>> GetAllAsync();
-        Task<TeacherDto> GetAsync(Guid id);
+    
         Task UpdateAsync(TeacherDto input);
         Task DeleteAsync(Guid id);
+
+        Task<TeacherDto> GetByUserIdAsync(long userId);
         //Task<List<TeacherDto>> GetTeachersBySubjectAsync(string subject);
         //Task<List<TeacherDto>> GetTeachersByGradeAsync(string grade);
 

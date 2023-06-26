@@ -1,12 +1,21 @@
 ﻿using Abp.Application.Services;
+using Abp.Dependency;
 using Abp.Domain.Repositories;
 using AutoMapper;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SmartLearn.Domain;
+using SmartLearn.Domain.Enum;
 using SmartLearn.Services.Dto;
-using SmartLearn.Services.TestRecordServices;
+using SmartLearn.Services.Helper;
+using SmartLearn.Services.StoredFileService;
+using SmartLearn.Services.StoredFileService.Dto;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,18 +32,47 @@ namespace SmartLearn.Services.HomeworkServices
             _teacherRepository = teacherRepository;
         }
 
-        public async Task<HomeworkRecordDto> CreateAsync(HomeworkRecordDto input)
+
+        [Consumes("multipart/form-data")]
+
+        public async Task<HomeworkRecordDto> CreateAsync([FromForm]HomeworkRecordDto input)
         {
 
+            if (!Utils.IsImage(input.File))
+                throw new ArgumentException("The file is not a valid image.");
             var homework = ObjectMapper.Map<HomeworkRecord>(input);
+           
+         
+            if (input.File != null)
+            {
+                var storedFileService = IocManager.Instance.Resolve<StoredFileAppService>();
+                var storedFileDto = new StoredFileDto() { File = input.File };
+                homework.HomeworkFile = await storedFileService.CreateStoredFile(storedFileDto);
+            }
             homework.Teacher = _teacherRepository.Get(input.Teacher_Id);
-            await _homeworkRepository.InsertAsync(homework);
-            return ObjectMapper.Map<HomeworkRecordDto>(homework);
+            homework = await _homeworkRepository.InsertAsync(homework);
+            
+
+            var result = ObjectMapper.Map<HomeworkRecordDto>(homework);
+            var decomposed = RefListHelper.DecomposeIntoBitFlagComponents((int)homework.Subject);
+            var lists = new List<string>();
+
+            foreach (var item in decomposed)
+            {
+                var name = RefListHelper.GetEnumDescription((RefListSubject)item);
+            }
+
+            result.SubjectDisplay = lists;
+            result.Subject = decomposed.ToList();
+
+            return result;
         }
 
         public async Task<List<HomeworkRecordDto>> GetAllAsync()
         {
-            var homeworks = await _homeworkRepository.GetAllListAsync();
+            var homeworks = await _homeworkRepository.GetAllIncluding(x => x.Teacher).ToListAsync();
+
+
             return ObjectMapper.Map<List<HomeworkRecordDto>>(homeworks);
         }
 

@@ -123,6 +123,21 @@ namespace SmartLearn.Users
             var roles = await _roleRepository.GetAllListAsync();
             return new ListResultDto<RoleDto>(ObjectMapper.Map<List<RoleDto>>(roles));
         }
+        public async Task<List<string>> GetUserRoles(long userId)
+        {
+            var user = await _userManager.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            return roles.ToList();
+        }
+
+
+
 
         public async Task ChangeLanguage(ChangeUserLanguageDto input)
         {

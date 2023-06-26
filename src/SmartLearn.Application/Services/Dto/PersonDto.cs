@@ -22,6 +22,7 @@ namespace SmartLearn.Services.Dto
 
         [StringLength(13)]
         public  string IDNumber { get; set; }
+        public  string Passport { get; set; }
         public  string Username { get; set; }
 
         public string Password { get; set; }
@@ -30,6 +31,7 @@ namespace SmartLearn.Services.Dto
         public string PhoneNumber { get; set; }
 
         public  string EmailAddress { get; set; }
+        public  DateTime DateOfBirth { get; set; }
 
         public string StreetAddress { get; set; }
 
